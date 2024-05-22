@@ -1,0 +1,63 @@
+class TimeRecord:
+    def __init__(self, time_in):
+        self.time_in = time_in
+        self.time_out = None
+
+    def clock_out(self, time_out):
+        self.time_out = time_out
+
+    def __str__(self):
+        return f"Time In: {self.time_in} - Time Out: {self.time_out}"
+
+
+def clock_in(time_records):
+    time_in = input("Enter the time you clocked in (HH:MM): ")
+    time_records.append(TimeRecord(time_in))
+    print(f"Clock In recorded at {time_in}")
+
+
+def clock_out(time_records):
+    if not time_records or time_records[-1].time_out is not None:
+        print("No open clock in record found! Please clock in first.")
+        return
+    time_out = input("Enter the time you clocked out (HH:MM): ")
+    time_records[-1].clock_out(time_out)
+    print(f"Clock Out recorded at {time_out}")
+
+
+def view_time_records(time_records):
+    if not time_records:
+        print("No time records available.")
+    else:
+        print("Time Records:")
+        for record in time_records:
+            print(record)
+
+
+def main():
+    time_records = []
+    print("Welcome to the Daily Time Record System!")
+
+    while True:
+        print("Choose an option:")
+        print("1. Clock In")
+        print("2. Clock Out")
+        print("3. View Time Records")
+        print("4. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            clock_in(time_records)
+        elif choice == '2':
+            clock_out(time_records)
+        elif choice == '3':
+            view_time_records(time_records)
+        elif choice == '4':
+            print("Thank you for using the DTR System!")
+            break
+        else:
+            print("Invalid choice! Please enter a valid option.")
+
+
+if __name__ == "__main__":
+    main()
